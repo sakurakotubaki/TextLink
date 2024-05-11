@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
@@ -15,10 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.junichi.textlink.ui.theme.TextLinkTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,10 +34,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LinkTextScreen()
+                    Greeting()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun Greeting() {
+    Column {
+        LinkTextScreen()
     }
 }
 
@@ -59,7 +69,9 @@ fun LinkTextScreen() {
 
     val context = LocalContext.current
 
-    ClickableText(text = annotatedText, onClick = { offset ->
+    ClickableText(
+        style = TextStyle(color = Color.Black, fontSize = 28.sp),
+        text = annotatedText, onClick = { offset ->
         annotatedText.getStringAnnotations(
             tag = "URL", start = offset, end = offset
         ).firstOrNull()?.let { annotation ->
